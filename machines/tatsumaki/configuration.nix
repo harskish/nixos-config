@@ -135,16 +135,12 @@
     conda
   ];
 
-  # Git
+  # Git (check with `git config --list`)
   programs.git.enable = true;
   programs.git.config = {
-    init = {
-      defaultBranch = "main";
-    };
-    user = {
-      email = "erik.harkonen@hotmail.com";
-      name = "Erik Härkönen";
-    };
+    init.defaultBranch = "main";
+    user.email = "erik.harkonen@hotmail.com";
+    user.name = "Erik Härkönen";
   };
 
   # This value determines the NixOS release from which the default
