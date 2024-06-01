@@ -137,6 +137,10 @@
     conda
   ];
 
+  # Brave kwallet popup fuckery:
+  # 1. sudo rm .local/share/kwalletd/kdewallet.*
+  # 2. Popup will show up, select blowfish, provide empty password
+
   # Git (check with `git config --list`)
   programs.git.enable = true;
   programs.git.config = {
