@@ -53,7 +53,8 @@
 
   # Aliases
   environment.shellAliases = {
-    nixconf = "sudo code --no-sandbox --user-data-dir=~/.vscode /etc/nixos/configuration.nix"; # vscode
+    # NB: using ~ might create dummy ./~ dirs everywhere
+    nixconf = "sudo code --no-sandbox --user-data-dir=$HOME/.vscode /etc/nixos/configuration.nix";
     gst = "git status";
     slog = "git log --oneline -20";
   };
