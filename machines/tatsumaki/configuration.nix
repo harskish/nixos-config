@@ -33,9 +33,22 @@
     ../../shared/aliases.nix
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  # Bootloader: make Windows the default
+  # Adnim CMD:
+  # mountvol Q: /s
+  # Q:
+  # nano loader\loader.conf
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    extraInstallCommands = ''
+      echo "title Windows" > /boot/loader/entries/windows.conf
+      echo "efi /EFI/Microsoft/Boot/bootmgfw.efi" >> /boot/loader/entries/windows.conf
+      echo "timeout 5" > /boot/loader/loader.conf
+      echo "default windows.conf" >> /boot/loader/loader.conf
+      echo "console-mode keep" >> /boot/loader/loader.conf
+    '';
+  };
 
   networking.hostName = "tatsumaki-nixos"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
