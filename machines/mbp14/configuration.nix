@@ -51,6 +51,10 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
+  # Hyprland:
+  # https://www.youtube.com/watch?v=Nfm3oyJx_Hk
+  # https://github.com/JaKooLit/Fedora-Hyprland
+
   # Pure wayland Plasma 6
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
