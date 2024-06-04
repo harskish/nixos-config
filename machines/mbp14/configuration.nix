@@ -64,6 +64,17 @@
     defaultSession = "plasma";
   };
 
+  # Using pkgs.mesa-asahi-edge below; mesa overlay doesn't seem to be needed
+  # nixpkgs.overlays = [ (final: prev: { mesa = final.mesa-asahi-edge; }) ];
+
+  # Asahi GPU driver
+  hardware.asahi = {
+    withRust = true;
+    #addEdgeKernelConfig = true; # deprecated
+    useExperimentalGPUDriver = true;
+    experimentalGPUInstallMode = "replace";
+  };
+
   # Enable OpenGL
   hardware.opengl.enable = true;
 
@@ -71,12 +82,11 @@
   # services.printing.enable = true;
 
   # Enable sound.
-  # hardware.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
+  sound.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
@@ -90,14 +100,17 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages installed in system profile
   environment.systemPackages = with pkgs; [
     wget
     vscode
     brave
     unixtools.ping
+    glxinfo
+    mesa-asahi-edge
   ];
+
+  programs.firefox.enable = true;
 
   programs.git.enable = true;
   programs.git.config = {
@@ -106,8 +119,8 @@
     init.defaultBranch = "main";
   };
 
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.05"; # Did you read the comment?
+  # First installed NixOS version (not necessarily current)
+  system.stateVersion = "24.05";
 
 }
 
