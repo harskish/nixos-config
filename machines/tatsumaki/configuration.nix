@@ -5,11 +5,6 @@
 # sudo nixos-rebuild {build, test, boot, switch}
 # nixos-version
 
-# Change default boot option from Windows:
-# mountvol Q: /s
-# Q:
-# nano loader\loader.conf
-
 # Updating NixOS
 # Check available channels form https://channels.nixos.org/
 # Check current: `sudo nix-channel --list | grep nixos`
@@ -44,14 +39,13 @@
     extraInstallCommands = ''
       echo "title Windows" > /boot/loader/entries/windows.conf
       echo "efi /EFI/Microsoft/Boot/bootmgfw.efi" >> /boot/loader/entries/windows.conf
-      echo "timeout 5" > /boot/loader/loader.conf
-      echo "default windows.conf" >> /boot/loader/loader.conf
-      echo "console-mode keep" >> /boot/loader/loader.conf
+      #echo "timeout 5" > /boot/loader/loader.conf
+      #echo "default windows.conf" >> /boot/loader/loader.conf
+      #echo "console-mode keep" >> /boot/loader/loader.conf
     '';
   };
 
   networking.hostName = "tatsumaki-nixos"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
