@@ -5,6 +5,11 @@
 # sudo nixos-rebuild {build, test, boot, switch}
 # nixos-version
 
+# Change default boot option from Windows:
+# mountvol Q: /s
+# Q:
+# nano loader\loader.conf
+
 # Updating NixOS
 # Check available channels form https://channels.nixos.org/
 # Check current: `sudo nix-channel --list | grep nixos`
