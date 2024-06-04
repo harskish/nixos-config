@@ -5,47 +5,27 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
+  imports = [
       ./hardware-configuration.nix
       ./apple-silicon-support
+      ../../shared/user.nix
+      ../../shared/locale.nix
+      ../../shared/aliases.nix
     ];
-
-  # Specify path to peripheral firmware files
-  # => seems broken
-  # hardware.asahi.peripheralFirmwareDirectory = ./firmware;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [ "apple_dcp.show_notch=0" ];
   
   # Networking
-  networking.hostName = "nixos"; # hostname.
+  networking.hostName = "mbp14-nixos"; # hostname.
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
   networking.wireless.iwd = {
     enable = true;
     settings.General.EnableNetworkConfiguration = true;
   };
-
-  # Set your time zone.
-  time.timeZone = "Europe/Helsinki";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # Aliases
-  environment.shellAliases = {
-    # NB: using ~ might create dummy ./~ dirs everywhere
-    nixconf = "sudo code --no-sandbox --user-data-dir=$HOME/.vscode /etc/nixos/configuration.nix";
-    gst = "git status";
-    slog = "git log --oneline -20";
-  };
-  
-  # Configure keymap
-  console.keyMap = "fi";
-  services.xserver.xkb.layout = "fi"; # needed despite no x11
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
@@ -62,17 +42,19 @@
   services.xserver.enable = false;
   services.displayManager = {
     defaultSession = "plasma";
+    autoLogin.user = "erik";
+    autoLogin.enable = true;
   };
 
   # Using pkgs.mesa-asahi-edge below; mesa overlay doesn't seem to be needed
   # nixpkgs.overlays = [ (final: prev: { mesa = final.mesa-asahi-edge; }) ];
 
-  # Asahi GPU driver
+  # Asahi GPU driver & firmware
   hardware.asahi = {
     withRust = true;
-    #addEdgeKernelConfig = true; # deprecated
     useExperimentalGPUDriver = true;
     experimentalGPUInstallMode = "replace";
+    peripheralFirmwareDirectory = ./firmware;
   };
 
   # Enable OpenGL
@@ -90,12 +72,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.erik = {
-    isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ]; # Enable ‘sudo’ for the user.
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

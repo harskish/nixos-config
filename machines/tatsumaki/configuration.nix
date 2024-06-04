@@ -21,43 +21,22 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../shared/user.nix
+    ../../shared/locale.nix
+    ../../shared/aliases.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "tatsumaki-nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Helsinki";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fi_FI.UTF-8";
-    LC_IDENTIFICATION = "fi_FI.UTF-8";
-    LC_MEASUREMENT = "fi_FI.UTF-8";
-    LC_MONETARY = "fi_FI.UTF-8";
-    LC_NAME = "fi_FI.UTF-8";
-    LC_NUMERIC = "fi_FI.UTF-8";
-    LC_PAPER = "fi_FI.UTF-8";
-    LC_TELEPHONE = "fi_FI.UTF-8";
-    LC_TIME = "fi_FI.UTF-8";
-  };
-
-  # Aliases
-  environment.shellAliases = {
-    # NB: using ~ might create dummy ./~ dirs everywhere
-    nixconf = "sudo code --no-sandbox --user-data-dir=$HOME/.vscode /etc/nixos/configuration.nix";
-    gst = "git status";
-    slog = "git log --oneline -20";
-  };
 
   # Pure-wayland Plasma 6
   services.desktopManager.plasma6.enable = true;
@@ -90,10 +69,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.production; # 550
   };
 
-  # Configure keymap
-  console.keyMap = "fi";
-  services.xserver.xkb.layout = "fi"; # needed despite no x11
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -115,16 +90,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.erik = {
-    isNormalUser = true;
-    description = "Erik";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kate
-    ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -138,7 +103,7 @@
   ];
 
   # Brave kwallet popup fuckery:
-  # 1. sudo rm .local/share/kwalletd/kdewallet.*
+  # 1. sudo rm /home/erik/.local/share/kwalletd/kdewallet.*
   # 2. Popup will show up, select blowfish, provide empty password
 
   # Git (check with `git config --list`)
