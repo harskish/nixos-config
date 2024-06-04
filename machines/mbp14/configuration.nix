@@ -16,7 +16,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [ "apple_dcp.show_notch=0" ];
+  boot.kernelParams = [ "apple_dcp.show_notch=1" ];
   
   # Networking
   networking.hostName = "mbp14-nixos"; # hostname.
@@ -31,11 +31,10 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  # Hyprland:
-  # https://www.youtube.com/watch?v=Nfm3oyJx_Hk
-  # https://github.com/JaKooLit/Fedora-Hyprland
-
   # Pure wayland Plasma 6
+  # Panel settings for hiding MBP14 notch:
+  # 1. Right-click panel, enter edit mode
+  # 2. Position top, fill width, height 32, non-floating
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
@@ -45,9 +44,6 @@
     autoLogin.user = "erik";
     autoLogin.enable = true;
   };
-
-  # Using pkgs.mesa-asahi-edge below; mesa overlay doesn't seem to be needed
-  # nixpkgs.overlays = [ (final: prev: { mesa = final.mesa-asahi-edge; }) ];
 
   # Asahi GPU driver & firmware
   hardware.asahi = {
@@ -61,7 +57,7 @@
   hardware.opengl.enable = true;
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -71,7 +67,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
