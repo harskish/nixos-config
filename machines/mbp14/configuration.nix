@@ -45,6 +45,9 @@
     autoLogin.enable = true;
   };
 
+  # Broken scaling in Electron-based apps (Brave/VSCode) under Wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Asahi GPU driver & firmware
   hardware.asahi = {
     withRust = true;
@@ -80,6 +83,7 @@
     unixtools.ping
     glxinfo
     mesa-asahi-edge
+    ffmpeg
   ];
 
   programs.firefox.enable = true;

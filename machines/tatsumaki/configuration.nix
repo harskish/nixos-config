@@ -61,6 +61,9 @@
     autoLogin.enable = true;
   };
 
+  # Broken scaling in Electron-based apps (Brave/VSCode) under Wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
