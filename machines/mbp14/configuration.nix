@@ -11,6 +11,7 @@
       ../../shared/user.nix
       ../../shared/locale.nix
       ../../shared/aliases.nix
+      ../../shared/programs.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -49,6 +50,7 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Asahi GPU driver & firmware
+  environment.systemPackages = [ pkgs.mesa-asahi-edge ];
   hardware.asahi = {
     withRust = true;
     useExperimentalGPUDriver = true;
@@ -71,30 +73,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile
-  environment.systemPackages = with pkgs; [
-    wget
-    vscode
-    brave
-    unixtools.ping
-    glxinfo
-    mesa-asahi-edge
-    ffmpeg
-    killall
-  ];
-
-  programs.firefox.enable = true;
-
-  programs.git.enable = true;
-  programs.git.config = {
-    user.email = "erik.harkonen@hotmail.com";
-    user.name = "Erik Härkönen";
-    init.defaultBranch = "main";
-  };
 
   # First installed NixOS version (not necessarily current)
   system.stateVersion = "24.05";

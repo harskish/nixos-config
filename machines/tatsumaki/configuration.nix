@@ -26,6 +26,7 @@
     ../../shared/user.nix
     ../../shared/locale.nix
     ../../shared/aliases.nix
+    ../../shared/programs.nix
   ];
 
   # Bootloader: make Windows the default
@@ -100,33 +101,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # System packages: just binaries added to path
-  # Configuration cannot be declared unlike programs
-  environment.systemPackages = with pkgs; [
-    wget
-    vscode
-    brave
-    conda
-  ];
-
-  # Brave kwallet popup fuckery:
-  # 1. sudo rm /home/erik/.local/share/kwalletd/kdewallet.*
-  # 2. Popup will show up, select blowfish, provide empty password
-
-  # Git (check with `git config --list`)
-  programs.git.enable = true;
-  programs.git.config = {
-    init.defaultBranch = "main";
-    user.email = "erik.harkonen@hotmail.com";
-    user.name = "Erik Härkönen";
   };
 
   # First version of NixOS installed on this machine.
