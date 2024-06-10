@@ -84,6 +84,7 @@
     glxinfo
     mesa-asahi-edge
     ffmpeg
+    killall
   ];
 
   programs.firefox.enable = true;
