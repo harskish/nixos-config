@@ -23,6 +23,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../shared/local-hardware-clock.nix
     ../../shared/user.nix
     ../../shared/locale.nix
     ../../shared/aliases.nix
