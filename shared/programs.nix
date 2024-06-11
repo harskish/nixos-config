@@ -13,6 +13,7 @@
     unixtools.ping
     glxinfo
     ffmpeg
+    pdftk
     killall
   ];
 
