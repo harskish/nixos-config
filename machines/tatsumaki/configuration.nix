@@ -30,10 +30,7 @@
   ];
 
   # Bootloader: make Windows the default
-  # Adnim CMD:
-  # mountvol Q: /s
-  # Q:
-  # nano loader\loader.conf
+  # Admin CMD: `mountvol Q: /s && nano Q:\loader\loader.conf`
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot = {
     enable = true;
