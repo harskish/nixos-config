@@ -6,13 +6,13 @@
 
 {
   imports = [
-      ./hardware-configuration.nix
-      ./apple-silicon-support
-      ../../shared/user.nix
-      ../../shared/locale.nix
-      ../../shared/aliases.nix
-      ../../shared/programs.nix
-    ];
+    ./hardware-configuration.nix
+    ./apple-silicon-support
+    ../../shared/user.nix
+    ../../shared/locale.nix
+    ../../shared/aliases.nix
+    ../../shared/programs.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -22,11 +22,14 @@
   # Networking
   networking.hostName = "mbp14-nixos"; # hostname.
   networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
-  networking.wireless.iwd = {
-    enable = true;
-    settings.General.EnableNetworkConfiguration = true;
-  };
+
+  # Switch from wpa_supplicant to iwd,
+  # required for WPA3 support on Broadcom chips
+  #networking.networkmanager.wifi.backend = "iwd";
+  #networking.wireless.iwd = {
+  #  enable = true;
+  #  settings.General.EnableNetworkConfiguration = true;
+  #};
 
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
