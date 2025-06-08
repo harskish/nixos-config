@@ -11,10 +11,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
+      url = "github:zhaofengli-wip/nix-homebrew"; # manages homebrew installation on nix-darwin: pins version, handles taps
     };
     homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
+      url = "github:homebrew/homebrew-bundle"; # declarative Brew interface (Brewfile)
       flake = false;
     };
     homebrew-core = {

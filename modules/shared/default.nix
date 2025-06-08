@@ -10,7 +10,7 @@ in
       allowUnfree = true;
       allowBroken = true;
       allowInsecure = false;
-      allowUnsupportedSystem = true;
+      allowUnsupportedSystem = false; # try building even if not marked as supported?
     };
 
     overlays =

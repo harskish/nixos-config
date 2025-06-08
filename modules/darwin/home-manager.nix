@@ -23,6 +23,8 @@ in
     shell = pkgs.zsh;
   };
 
+  # NB: this attribute set is a part of nix-darwin, not home-manager, despite filename!
+  # A Brewfile is produced as a result of these parameters
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
@@ -42,8 +44,9 @@ in
     # you may receive an error message "Redownload Unavailable with This Apple ID".
     # This message is safe to ignore. (https://github.com/dustinlyons/nixos-config/issues/83)
     masApps = {
-      #"1password" = 1333542190;
-      #"wireguard" = 1451685025;
+      # NB: these require xcode command line tools (trying to avoid!)
+      #"Ente Auth" = 6444121398; # not being installed...!
+      #"Tailscale" = 1475387142;
     };
   };
 
@@ -74,8 +77,15 @@ in
     enable = true;
     username = user;
     entries = [
-    { path = "/Applications/Slack.app/"; }
-    { path = "/System/Applications/Photos.app/"; }
+    { path = "/Applications/Slack.app/"; } # cask
+    { path = "/Applications/Brave\ Browser.app/"; } # cask
+    { path = "/System/Applications/Utilities/Terminal.app/"; }
+    { path = "/Applications/Ente Auth.app/"; }
+    {
+      path = "/Applications";
+      section = "others";
+      options = "--sort name --view grid --display stack";
+    }
     {
       path = "${config.users.users.${user}.home}/Downloads";
       section = "others";

@@ -10,4 +10,6 @@ with pkgs; [
   ffmpeg
   unrar
   unzip
+  devenv
+  tailscale
 ]

@@ -8,4 +8,5 @@ _:
   "vlc"
   "raycast"
   "brave-browser"
+  "ente-auth" # nixpkgs: build fails, mas: not showing up in Applications
 ]

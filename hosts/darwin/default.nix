@@ -37,6 +37,9 @@ let user = "erik"; in
   # Sudo using TouchID
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  # Tailscale service
+  services.tailscale.enable = true;
+
   system = {
     checks.verifyNixPath = false;
     primaryUser = user;
