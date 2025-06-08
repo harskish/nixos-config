@@ -26,7 +26,10 @@ in
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
-    onActivation.cleanup = "zap"; #"uninstall";
+    
+    # github.com/zhaofengli/nix-homebrew/issues/5#issuecomment-1878798641
+    taps = builtins.attrNames config.nix-homebrew.taps;
+    onActivation.cleanup = "zap";
 
     # These app IDs are from using the mas CLI app
     # mas = mac app store
@@ -72,10 +75,9 @@ in
     username = user;
     entries = [
     { path = "/Applications/Slack.app/"; }
-    { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
     { path = "/System/Applications/Photos.app/"; }
     {
-      path = "${config.users.users.${user}.home}/.local/share/downloads";
+      path = "${config.users.users.${user}.home}/Downloads";
       section = "others";
       options = "--sort name --view grid --display stack";
     }

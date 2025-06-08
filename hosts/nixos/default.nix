@@ -6,6 +6,7 @@ let user = "erik";
   imports = [
     ../../modules/nixos/disk-config.nix
     ../../modules/shared
+    ../../modules/shared/aliases.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

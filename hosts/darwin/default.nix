@@ -5,7 +5,8 @@ let user = "erik"; in
 {
   imports = [
     ../../modules/darwin/home-manager.nix
-    ../../modules/shared
+    ../../modules/shared # shared entry: nixpkgs flags, overlays
+    ../../modules/shared/aliases.nix
   ];
 
   nix = {
@@ -28,25 +29,13 @@ let user = "erik"; in
     '';
   };
 
-
   environment.systemPackages = with pkgs; [
-    emacs-unstable
+    # Darwin-only pkgs here
+    # TODO: why here since we have modules/darwin/packages.nix?
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Sudo using TouchID
   security.pam.services.sudo_local.touchIdAuth = true;
-
-  launchd.user.agents.emacs.path = [ config.environment.systemPath ];
-  launchd.user.agents.emacs.serviceConfig = {
-    KeepAlive = true;
-    ProgramArguments = [
-      "/bin/sh"
-      "-c"
-      "/bin/wait4path ${pkgs.emacs}/bin/emacs && exec ${pkgs.emacs}/bin/emacs --fg-daemon"
-    ];
-    StandardErrorPath = "/tmp/emacs.err.log";
-    StandardOutPath = "/tmp/emacs.out.log";
-  };
 
   system = {
     checks.verifyNixPath = false;
@@ -55,15 +44,10 @@ let user = "erik"; in
 
     defaults = {
       NSGlobalDomain = {
+        KeyRepeat = 2;         # 120, 90, 60, 30, 12, 6, 2
+        InitialKeyRepeat = 15; # 120, 94, 68, 35, 25, 15
         AppleShowAllExtensions = true;
-        ApplePressAndHoldEnabled = false;
-
-        KeyRepeat = 2; # Values: 120, 90, 60, 30, 12, 6, 2
-        InitialKeyRepeat = 15; # Values: 120, 94, 68, 35, 25, 15
-
         "com.apple.mouse.tapBehavior" = 1;
-        "com.apple.sound.beep.volume" = 0.0;
-        "com.apple.sound.beep.feedback" = 0;
       };
 
       dock = {
@@ -71,16 +55,7 @@ let user = "erik"; in
         show-recents = false;
         launchanim = true;
         orientation = "bottom";
-        tilesize = 48;
-      };
-
-      finder = {
-        _FXShowPosixPathInTitle = false;
-      };
-
-      trackpad = {
-        Clicking = true;
-        TrackpadThreeFingerDrag = false; # madness!
+        tilesize = 36;
       };
     };
   };

@@ -1,5 +1,7 @@
 {
-  description = "Starter Configuration for MacOS and NixOS";
+  # Cross-platform Nix entry point
+
+  description = "Configuration for MacOS and NixOS";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -24,7 +26,7 @@
       flake = false;
     };
     disko = {
-      url = "github:nix-community/disko";
+      url = "github:nix-community/disko"; # for automatic disk formatting (NixOS)
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
