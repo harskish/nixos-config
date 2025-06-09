@@ -7,6 +7,7 @@ let user = "erik"; in
     ../../modules/darwin/home-manager.nix
     ../../modules/shared # shared entry: nixpkgs flags, overlays
     ../../modules/shared/aliases.nix
+    ./disable-default-hotkeys.nix
   ];
 
   nix = {
@@ -62,4 +63,10 @@ let user = "erik"; in
       };
     };
   };
+
+  # Following line should allow us to avoid a logout/login cycle when changing settings
+  # https://github.com/nix-darwin/nix-darwin/issues/518#issuecomment-2906740167
+  system.activationScripts.postActivation.text = ''    
+    sudo -u ${user} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  '';
 }
