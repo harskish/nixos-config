@@ -1,0 +1,15 @@
+{
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Rebuild-switch",
+                "type": "shell",
+                "command": "nix run .#build-switch",
+                "problemMatcher": [],
+                "group": {
+                    "kind": "build", // start with: Terminal -> Run Build Task (cmd+shift+B)
+                    "isDefault": true,
+                },
+            }
+        ]
+    }
