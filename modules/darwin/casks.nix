@@ -8,5 +8,6 @@ _:
   "vlc"
   "raycast"
   "brave-browser"
+  "linearmouse"
   "ente-auth" # nixpkgs: build fails, mas: not showing up in Applications
 ]

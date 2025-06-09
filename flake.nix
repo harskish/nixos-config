@@ -95,7 +95,7 @@
                   "homebrew/homebrew-bundle" = homebrew-bundle;
                 };
                 mutableTaps = false;
-                autoMigrate = true;
+                autoMigrate = true; # automatically migrate existing Homebrew installations
               };
             }
             ./hosts/darwin
