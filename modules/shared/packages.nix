@@ -12,4 +12,5 @@ with pkgs; [
   unzip
   devenv
   tailscale
+  figlet # figlet -c -f script "big oof"
 ]

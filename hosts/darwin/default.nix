@@ -52,6 +52,7 @@ let user = "erik"; in
         InitialKeyRepeat = 15; # 120, 94, 68, 35, 25, 15
         AppleShowAllExtensions = true;
         "com.apple.mouse.tapBehavior" = 1;
+        "com.apple.keyboard.fnState" = true; # f1-12 without fn key
       };
 
       dock = {

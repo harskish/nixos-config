@@ -37,6 +37,7 @@
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
       darwinSystems = [ "aarch64-darwin" "x86_64-darwin" ];
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
+      # Used if `nix develop` is called in root
       devShell = system: let pkgs = nixpkgs.legacyPackages.${system}; in {
         default = with pkgs; mkShell {
           nativeBuildInputs = with pkgs; [ bashInteractive git ];

@@ -50,7 +50,7 @@ let
   # If you want to disable all hotkeys, you can use the `hotkeyEnums` directly
   # If you want to keep some hotkeys enabled, simply comment them out or remove them from the following list.
   editMe_disableHotKeys = with hotkeyEnums; [
-    selectPreviousInputSource     # 60
+    selectPreviousInputSource
   ];
 
   uniqueSortedHotkeyIntegerIdsToDisable = lib.sort lib.lessThan editMe_disableHotKeys;
